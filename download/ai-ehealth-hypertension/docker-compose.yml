@@ -1,0 +1,38 @@
+# =========================================================
+# AI E-Health — Hypertension Module
+# Docker Compose — single-service orchestration
+# =========================================================
+# This Compose file runs the Hypertension Risk Predictor as a
+# standalone service. When the team later merges all modules
+# (heart, diabetes, thyroid, hypertension), additional services
+# can be added under "services" below.
+# =========================================================
+
+services:
+  hypertension-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ai-ehealth/hypertension:latest
+    container_name: ai-ehealth-hypertension
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3000/api/predict').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    networks:
+      - ehealth-net
+
+networks:
+  ehealth-net:
+    driver: bridge
+    name: ai-ehealth-net

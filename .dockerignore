@@ -1,0 +1,53 @@
+# Build artifacts
+.next/
+out/
+dist/
+build/
+
+# Dependencies
+node_modules/
+
+# Dev / cache
+.cache/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+bun-debug.log*
+
+# Env files (never commit secrets)
+.env
+.env.*
+!.env.example
+
+# Version control
+.git/
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose.yml
+docker-compose.*.yml
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+
+# Tests / coverage
+coverage/
+*.lcov
+
+# Misc
+README.md
+*.md
+!prisma/*.md
+tests/
+examples/
+.zscripts/
+dev.log
+server.log
